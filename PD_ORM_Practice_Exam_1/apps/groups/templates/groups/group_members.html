@@ -1,0 +1,53 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Group Members</title>
+        <meta name="description" content="Python Practice Exam 1">
+        {% load static %}
+        <link rel="stylesheet" href="{% static 'groups/css/group_members.css' %}" media="screen" title="no title"  charset="utf-8">
+        <script src="http://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script>
+        {% load static %}
+        <script type="text/javascript" src="{% static 'groups/js/group_members.js' %}"></script>
+    </head>
+    <body>
+    <div id="container">
+        <h4><a href="/groups/age_groups">Home</a><a href="/groups/logout">Logout</a></h4>
+        <br>
+        <br>
+        <h2>Member in the age range: {{ age_range_display }}</h2>        
+        
+            <table style="width:50%">
+                <thead>
+                      <tr>
+                        <th>Name</th> 
+                        <th>Age</th>
+                      </tr>
+                 </thead>
+                 <tbody>
+                     {% for user in users %}
+                     <tr>
+                         <td>{{ user.name }}</td>
+                         <td>{{ user.age }}</td>
+                     {% endfor %}
+                     </tr>
+                 </tbody>
+            </table>
+            
+            <h3>Comments By The Group:</h3>
+            <div class="comments">
+                     {% for comment in comments %}
+                         <p>{{ comment.content }} - {{ comment.user.name }}</p>
+                     {% endfor %}
+            </div>
+            
+            {% if max != 0 and request.session.age >= min and request.session.age <= max %}
+                <a href="/groups/add_comment/{{ age_range }}">Add A Comment</a>
+            {% endif %}
+            
+            {% if max == 0 and request.session.age >= min %}
+                <a href="/groups/add_comment/{{ age_range }}">Add A Comment</a>
+            {% endif %}
+            
+    </div>
+    </body>
+</html>

@@ -1,0 +1,39 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Add A Comment</title>
+        <meta name="description" content="Python Practice Exam 1">
+        {% load static %}
+        <link rel="stylesheet" href="{% static 'groups/css/add_comment.css' %}" media="screen" title="no title"  charset="utf-8">
+        <script src="http://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script>
+        {% load static %}
+        <script type="text/javascript" src="{% static 'groups/js/add_comment.js' %}"></script>
+    </head>
+    <body>
+    <div id="container">
+        <h4><a href="/groups/age_groups">Home</a><a href="/groups/logout">Logout</a></h4>
+        <br>
+        <br>
+        <h2>Add a comment</h2>
+        <p>You can only comment if you are in this age group</p>
+        <br>
+            {% if messages %}
+	            <div class="messages">
+	                {% for message in messages %}
+	                    <p>{{ message }}</p>
+	                {% endfor %}
+	            </div>
+            {% endif %}
+            
+        <h2>Comment</h2>
+        
+        <form action="/groups/save_comment/{{age_range}}" method="POST">
+            {% csrf_token %}
+            <textarea name='comment' rows="10" cols="50"></textarea>
+            <br>
+            <button type="submit">Submit</button>    
+        </form>
+        
+    </div>
+    </body>
+</html>
